@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Index page for another test project.
+ * Index page for the food file.
  * User: Ryan Guelzo
  * Date: 04/15/19
  */
@@ -19,9 +19,22 @@ $f3 = Base::instance();
 //Specified the default route
 $f3->route('GET /', function () {
     //Displays a view
-    $view = new Template();
-    echo $view->render("views/html");
+    $view = new Template();//Class in the Fat-Free Framework
+    echo $view->render('views/html');//uses views render method that returns the content of the page.
 
+});
+
+//Define a breakfast route
+$f3->route('GET /breakfast', function(){
+
+    $view = new Template();
+    echo $view->render('views/breakfast.html');
+});
+
+$f3->route('GET /lunch', function(){
+
+    $view = new Template();
+    echo $view->render("views/lunch.html");
 });
 
 //Run fat-free
