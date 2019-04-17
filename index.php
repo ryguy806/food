@@ -5,6 +5,9 @@
  * User: Ryan Guelzo
  * Date: 04/15/19
  */
+//Creates the session
+sesion_start();
+
 
 //Error reporting
 ini_set('display_errors', 1);
@@ -41,6 +44,57 @@ $f3->route('GET /breakfast/continental', function(){
 
     $view = new Template();
     echo $view->render("views/bfast-continental.html");
+});
+
+$f3->route('GET /breakfast/continental', function(){
+
+    $view = new Template();
+    echo $view->render("views/bfast-continental.html");
+});
+
+$f3->route('GET /order', function(){
+
+    //Display form 1.
+    $view = new Template();
+    echo $view->render("views/form1.html");
+});
+
+$f3->route('POST /order-process', function(){
+
+    //looks at the array made by POST.
+    //print_r($_POST);
+
+    $_SESSION = $_POST['food'];
+
+    //display form 2
+    $view = new Template();
+    echo $view->render("views/form2.html");
+});
+
+$f3->route('GET /@item', function($f3, $params){
+
+    $item = $params['item'];
+    $foodsWeServe = array('spaghetti', 'enchiladas', 'pad thai', 'lumpia');
+
+    if(!in_array($item, $foodsWeServe)){
+        echo "We do not server $item";
+    }
+
+    switch($item){
+        case 'spaghetti':
+            echo "<h3>I like $item with meatballs</h3>";
+            break;
+        case 'pizza':
+            echo "Pepperoni or veggie?";
+            break;
+        case 'tacos':
+            echo "we do not server $item";
+            break;
+        case 'bagel':
+            $f3->reroute("/breakfast/continental");
+        default:
+            $f3->error(404);
+    }
 });
 
 //Run fat-free
