@@ -23,8 +23,7 @@ $f3 = Base::instance();
 $f3->route('GET /', function () {
     //Displays a view
     $view = new Template();//Class in the Fat-Free Framework
-    echo $view->render('views/html');//uses views render method that returns the content of the page.
-
+    echo $view->render('views/home.html');//uses views render method that returns the content of the page.
 });
 
 //Define a breakfast route
@@ -59,16 +58,28 @@ $f3->route('GET /order', function(){
     echo $view->render("views/form1.html");
 });
 
-$f3->route('POST /order-process', function(){
+$f3->route('POST /order2', function(){
 
     //looks at the array made by POST.
     //print_r($_POST);
 
-    $_SESSION = $_POST['food'];
+    $_SESSION['food'] = $_POST['food'];
 
     //display form 2
     $view = new Template();
     echo $view->render("views/form2.html");
+});
+
+$f3->route('POST /summary', function(){
+
+    //looks at the array made by POST.
+    //print_r($_POST);
+
+    $_SESSION['meal'] = $_POST['meal'];
+
+    //display form 2
+    $view = new Template();
+    echo $view->render("views/summary.html");
 });
 
 $f3->route('GET /@item', function($f3, $params){
